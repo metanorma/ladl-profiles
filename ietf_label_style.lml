@@ -117,7 +117,7 @@ instance ClauseLabelTemplate < LabelTemplate {
 }
 
 instance ClauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "Section %n"
+  pattern = "{section} %n"
   definition "Template for section cross-references"
 }
 
@@ -137,7 +137,7 @@ instance SubclauseLabelTemplate < LabelTemplate {
 }
 
 instance SubclauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "Section %pn.%n"
+  pattern = "{section} %pn.%n"
   definition "Template for subsection cross-references"
 }
 
@@ -155,12 +155,12 @@ instance SubclauseLabeller < Labeller {
 // Appendix templates: top-level back-matter sections are "Appendix A.";
 // inner levels carry dotted numbers and cite "Appendix A.1".
 instance AnnexLabelTemplate < LabelTemplate {
-  pattern = "Appendix %n."
+  pattern = "{appendix} %n."
   definition "Template for appendix heading labels"
 }
 
 instance AnnexGlobalLabelTemplate < LabelTemplate {
-  pattern = "Appendix %n"
+  pattern = "{appendix} %n"
   definition "Template for appendix cross-references"
 }
 
@@ -180,7 +180,7 @@ instance AnnexClauseLabelTemplate < LabelTemplate {
 }
 
 instance AnnexClauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "Appendix %pn.%n"
+  pattern = "{appendix} %pn.%n"
   definition "Template for appendix section cross-references"
 }
 
@@ -201,7 +201,7 @@ instance AnnexSubclauseLabelTemplate < LabelTemplate {
 }
 
 instance AnnexSubclauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "Appendix %pn.%n"
+  pattern = "{appendix} %pn.%n"
   definition "Template for appendix subsection cross-references"
 }
 
@@ -219,7 +219,7 @@ instance AnnexSubclauseLabeller < Labeller {
 // Captions: xml2rfc renders "Table 1: Name" / "Figure 1: Name"; the
 // label is the caption prefix, the name join is a rendering concern.
 instance FigureLabelTemplate < LabelTemplate {
-  pattern = "Figure %n"
+  pattern = "{figure} %n"
   definition "Template for figure caption labels"
 }
 
@@ -233,7 +233,7 @@ instance FigureLabeller < Labeller {
 }
 
 instance AnnexFigureLabelTemplate < LabelTemplate {
-  pattern = "Figure %pn.%n"
+  pattern = "{figure} %pn.%n"
   definition "Template for figure caption labels in appendices"
 }
 
@@ -248,7 +248,7 @@ instance AnnexFigureLabeller < Labeller {
 }
 
 instance TableLabelTemplate < LabelTemplate {
-  pattern = "Table %n"
+  pattern = "{table} %n"
   definition "Template for table caption labels"
 }
 
@@ -262,7 +262,7 @@ instance TableLabeller < Labeller {
 }
 
 instance AnnexTableLabelTemplate < LabelTemplate {
-  pattern = "Table %pn.%n"
+  pattern = "{table} %pn.%n"
   definition "Template for table caption labels in appendices"
 }
 
@@ -279,7 +279,7 @@ instance AnnexTableLabeller < Labeller {
 // Notes: RFC XML v3 numbers no notes (xml2rfc render_note emits the
 // bare "Note" label); notes render bare regardless of repetition.
 instance NoteLabelTemplate < LabelTemplate {
-  pattern = "Note"
+  pattern = "{note}"
   definition "Template for notes"
 }
 

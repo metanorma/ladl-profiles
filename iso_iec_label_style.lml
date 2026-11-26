@@ -1,5 +1,7 @@
-// ISO/IEC Label Style Definition in LutaML
-// Based on LADL specification in document.adoc
+// ISO/IEC Label Style Definition in LutaML (the MN 112-A worked
+// profile instance). Label words are {key} tokens resolved through the
+// host document i18n table at runtime; the English default vocabulary
+// reproduces the specification outputs.
 
 // Main label style instance for ISO/IEC
 instance ISOIECLabelStyle < LabelStyle {
@@ -126,12 +128,12 @@ instance SubclauseContext < LabelContext {
 
 // Clause templates
 instance ClauseLabelTemplate < LabelTemplate {
-  pattern = "Clause %n"
+  pattern = "{clause} %n"
   definition "Template for local clause references"
 }
 
 instance ClauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "Clause %n"
+  pattern = "{clause} %n"
   definition "Template for global clause references"
 }
 
@@ -181,12 +183,12 @@ instance AnnexClauseContext < LabelContext {
 }
 
 instance AnnexLabelTemplate < LabelTemplate {
-  pattern = "Annex %n"
+  pattern = "{annex} %n"
   definition "Template for local annex references"
 }
 
 instance AnnexGlobalLabelTemplate < LabelTemplate {
-  pattern = "Annex %n"
+  pattern = "{annex} %n"
   definition "Template for global annex references"
 }
 
@@ -270,12 +272,12 @@ instance AnnexExampleLabeller < Labeller {
 
 // Figure labeling
 instance FigureLabelTemplate < LabelTemplate {
-  pattern = "Figure %n"
+  pattern = "{figure} %n"
   definition "Template for local figure references in the main document"
 }
 
 instance FigureGlobalLabelTemplate < LabelTemplate {
-  pattern = "Figure %n"
+  pattern = "{figure} %n"
   definition "Template for global figure references in the main document"
 }
 
@@ -290,12 +292,12 @@ instance FigureLabeller < Labeller {
 }
 
 instance AnnexFigureLabelTemplate < LabelTemplate {
-  pattern = "Figure %pn.%n"
+  pattern = "{figure} %pn.%n"
   definition "Template for local figure references in annexes"
 }
 
 instance AnnexFigureGlobalLabelTemplate < LabelTemplate {
-  pattern = "Figure %pn.%n"
+  pattern = "{figure} %pn.%n"
   definition "Template for global figure references in annexes"
 }
 
@@ -312,12 +314,12 @@ instance AnnexFigureLabeller < Labeller {
 
 // Subfigure labeling
 instance SubfigureLabelTemplate < LabelTemplate {
-  pattern = "Figure %pn %n)"
+  pattern = "{figure} %pn %n)"
   definition "Template for local subfigure references"
 }
 
 instance SubfigureGlobalLabelTemplate < LabelTemplate {
-  pattern = "Figure %pn %n)"
+  pattern = "{figure} %pn %n)"
   definition "Template for global subfigure references"
 }
 
@@ -334,12 +336,12 @@ instance SubfigureLabeller < Labeller {
 
 // Table labeling
 instance TableLabelTemplate < LabelTemplate {
-  pattern = "Table %n"
+  pattern = "{table} %n"
   definition "Template for local table references in the main document"
 }
 
 instance TableGlobalLabelTemplate < LabelTemplate {
-  pattern = "Table %n"
+  pattern = "{table} %n"
   definition "Template for global table references in the main document"
 }
 
@@ -354,12 +356,12 @@ instance TableLabeller < Labeller {
 }
 
 instance AnnexTableLabelTemplate < LabelTemplate {
-  pattern = "Table %pn.%n"
+  pattern = "{table} %pn.%n"
   definition "Template for local table references in annexes"
 }
 
 instance AnnexTableGlobalLabelTemplate < LabelTemplate {
-  pattern = "Table %pn.%n"
+  pattern = "{table} %pn.%n"
   definition "Template for global table references in annexes"
 }
 
@@ -376,12 +378,12 @@ instance AnnexTableLabeller < Labeller {
 
 // Note labeling
 instance NoteSingleLabelTemplate < LabelTemplate {
-  pattern = "NOTE"
+  pattern = "{note}"
   definition "Template for single note references"
 }
 
 instance NoteMultipleLabelTemplate < LabelTemplate {
-  pattern = "NOTE %n"
+  pattern = "{note} %n"
   definition "Template for multiple note references"
   condition = {
     type = "element_count_gt"
@@ -390,12 +392,12 @@ instance NoteMultipleLabelTemplate < LabelTemplate {
 }
 
 instance NoteSingleGlobalLabelTemplate < LabelTemplate {
-  pattern = "%parent, NOTE"
+  pattern = "%parent, {note}"
   definition "Template for global single note references"
 }
 
 instance NoteMultipleGlobalLabelTemplate < LabelTemplate {
-  pattern = "%parent, NOTE %n"
+  pattern = "%parent, {note} %n"
   definition "Template for global multiple note references"
   condition = {
     type = "element_count_gt"
@@ -429,12 +431,12 @@ instance SubclauseNoteLabeller < Labeller {
 
 // Example labeling
 instance ExampleSingleLabelTemplate < LabelTemplate {
-  pattern = "EXAMPLE"
+  pattern = "{example}"
   definition "Template for single example references"
 }
 
 instance ExampleMultipleLabelTemplate < LabelTemplate {
-  pattern = "EXAMPLE %n"
+  pattern = "{example} %n"
   definition "Template for multiple example references"
   condition = {
     type = "element_count_gt"
@@ -443,12 +445,12 @@ instance ExampleMultipleLabelTemplate < LabelTemplate {
 }
 
 instance ExampleSingleGlobalLabelTemplate < LabelTemplate {
-  pattern = "%parent, EXAMPLE"
+  pattern = "%parent, {example}"
   definition "Template for global single example references"
 }
 
 instance ExampleMultipleGlobalLabelTemplate < LabelTemplate {
-  pattern = "%parent, EXAMPLE %n"
+  pattern = "%parent, {example} %n"
   definition "Template for global multiple example references"
   condition = {
     type = "element_count_gt"
@@ -485,7 +487,7 @@ instance FormulaLabelTemplate < LabelTemplate {
 }
 
 instance FormulaGlobalLabelTemplate < LabelTemplate {
-  pattern = "Formula (%n)"
+  pattern = "{formula} (%n)"
   definition "Template for global formula references in the main document"
 }
 
@@ -505,7 +507,7 @@ instance AnnexFormulaLabelTemplate < LabelTemplate {
 }
 
 instance AnnexFormulaGlobalLabelTemplate < LabelTemplate {
-  pattern = "Formula (%pn.%n)"
+  pattern = "{formula} (%pn.%n)"
   definition "Template for global formula references in annexes"
 }
 
@@ -528,12 +530,12 @@ instance ListContext < LabelContext {
 }
 
 instance ListLabelTemplate < LabelTemplate {
-  pattern = "List %n"
+  pattern = "{list} %n"
   definition "Template for local list references in the main document"
 }
 
 instance ListGlobalLabelTemplate < LabelTemplate {
-  pattern = "List %n"
+  pattern = "{list} %n"
   definition "Template for global list references in the main document"
 }
 
@@ -548,12 +550,12 @@ instance ListLabeller < Labeller {
 }
 
 instance AnnexListLabelTemplate < LabelTemplate {
-  pattern = "List %pn.%n"
+  pattern = "{list} %pn.%n"
   definition "Template for local list references in annexes"
 }
 
 instance AnnexListGlobalLabelTemplate < LabelTemplate {
-  pattern = "List %pn.%n"
+  pattern = "{list} %pn.%n"
   definition "Template for global list references in annexes"
 }
 

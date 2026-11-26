@@ -111,7 +111,7 @@ instance ClauseLabelTemplate < LabelTemplate {
 }
 
 instance ClauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "Clause %n"
+  pattern = "{clause} %n"
   definition "Template for clause cross-references"
 }
 
@@ -131,7 +131,7 @@ instance SubclauseLabelTemplate < LabelTemplate {
 }
 
 instance SubclauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "Clause %pn.%n"
+  pattern = "{clause} %pn.%n"
   definition "Template for subclause cross-references"
 }
 
@@ -147,12 +147,12 @@ instance SubclauseLabeller < Labeller {
 }
 
 instance AnnexLabelTemplate < LabelTemplate {
-  pattern = "Annex %n"
+  pattern = "{annex} %n"
   definition "Template for annex labels"
 }
 
 instance AnnexGlobalLabelTemplate < LabelTemplate {
-  pattern = "Annex %n"
+  pattern = "{annex} %n"
   definition "Template for annex cross-references"
 }
 
@@ -172,7 +172,7 @@ instance AnnexClauseLabelTemplate < LabelTemplate {
 }
 
 instance AnnexClauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "Clause %pn.%n"
+  pattern = "{clause} %pn.%n"
   definition "Template for annex clause cross-references"
 }
 
@@ -193,7 +193,7 @@ instance AnnexSubclauseLabelTemplate < LabelTemplate {
 }
 
 instance AnnexSubclauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "Clause %pn.%n"
+  pattern = "{clause} %pn.%n"
   definition "Template for annex subclause cross-references"
 }
 
@@ -210,12 +210,12 @@ instance AnnexSubclauseLabeller < Labeller {
 
 // Per-chapter figure numbers: "Figure 3-1".
 instance FigureLabelTemplate < LabelTemplate {
-  pattern = "Figure %pn-%n"
+  pattern = "{figure} %pn-%n"
   definition "Template for figure caption labels (chapter-prefixed)"
 }
 
 instance FigureGlobalLabelTemplate < LabelTemplate {
-  pattern = "Figure %pn-%n"
+  pattern = "{figure} %pn-%n"
   definition "Template for figure cross-references"
 }
 
@@ -231,7 +231,7 @@ instance FigureLabeller < Labeller {
 }
 
 instance AnnexFigureLabelTemplate < LabelTemplate {
-  pattern = "Figure %pn-%n"
+  pattern = "{figure} %pn-%n"
   definition "Template for figure caption labels in annexes"
 }
 
@@ -247,7 +247,7 @@ instance AnnexFigureLabeller < Labeller {
 
 // Tables: ISO-style hierarchical form pending corpus evidence.
 instance TableLabelTemplate < LabelTemplate {
-  pattern = "Table %n"
+  pattern = "{table} %n"
   definition "Template for table caption labels"
 }
 
@@ -261,7 +261,7 @@ instance TableLabeller < Labeller {
 }
 
 instance AnnexTableLabelTemplate < LabelTemplate {
-  pattern = "Table %pn.%n"
+  pattern = "{table} %pn.%n"
   definition "Template for table caption labels in annexes"
 }
 
@@ -277,12 +277,12 @@ instance AnnexTableLabeller < Labeller {
 
 // Notes: ISO/IEC-inherited conditional form.
 instance NoteSingleLabelTemplate < LabelTemplate {
-  pattern = "NOTE"
+  pattern = "{note}"
   definition "Template for a lone note"
 }
 
 instance NoteMultipleLabelTemplate < LabelTemplate {
-  pattern = "NOTE %n"
+  pattern = "{note} %n"
   definition "Template for repeated notes"
   condition = {
     type = "element_count_gt"
