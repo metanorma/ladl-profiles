@@ -1,0 +1,43 @@
+= ladl-profiles
+
+Temporary home and testing ground for LADL label style profiles.
+
+Per the release plan, each flavor profile lives in its flavor gem and
+each taste profile in metanorma-taste (one LADL profile extraction per
+flavor gem / per taste); the engine gem `ladl` ships no profiles. This
+repo keeps the extracted profiles together while those canonical homes
+land, and provides a single place to run profile tests against the
+`ladl` engine (`Ladl.load_profile`).
+
+[cols="1,2,2"]
+|===
+|Profile |Canonical home |Status
+
+|`iso_iec_label_style.lml`
+|`ladl` engine conformance fixture (MN 112-A worked instance)
+|shipped with the engine's specs
+
+|`ietf_label_style.lml`
+|metanorma-ietf (ietf#355 leg)
+|PR open; xml2rfc + idnits verified
+
+|`iala_guideline_label_style.lml`
+|metanorma-taste `data/iala/` (G1199 Ed 1.0 form)
+|PR open; verified against the deposited IALA reference documents
+
+|`iala_standard_label_style.lml`
+|metanorma-taste `data/iala/` (S1040 Ed 2.0 form)
+|PR open; verified against the deposited IALA reference documents
+|===
+
+== Testing
+
+[source,ruby]
+----
+require "ladl"
+
+Dir["*.lml"].each do |path|
+  profile = Ladl.load_profile(path)
+  puts "#{path}: #{profile.style.name}"
+end
+----
