@@ -11,11 +11,17 @@ RSpec.describe "the extracted label profiles" do
     end
   end
 
+  # The host declares the label_context associations (MN 112: an
+  # element carrying children to be labeled declares the context that
+  # scopes them); labeled leaves declare their own context.
   it "labels a document tree with each profile" do
-    tree = Ladl::ContentElement.new(id: "doc", type: "document", children: [
+    tree = Ladl::ContentElement.new(id: "doc", type: "document",
+      label_context: "DocumentContext", children: [
       Ladl::ContentElement.new(id: "c1", type: "clause",
-        children: [Ladl::ContentElement.new(id: "c1s1", type: "subclause")]),
-      Ladl::ContentElement.new(id: "a1", type: "annex"),
+        label_context: "ClauseContext", children: [
+        Ladl::ContentElement.new(id: "c1s1", type: "subclause")]),
+      Ladl::ContentElement.new(id: "a1", type: "annex",
+        label_context: "AnnexContext"),
     ])
     Dir[File.join(__dir__, "..", "*.lml")].sort.each do |path|
       result = Ladl::Runtime::Engine.new(Ladl.load_profile(path)).label(tree)
@@ -25,9 +31,12 @@ RSpec.describe "the extracted label profiles" do
   end
 
   it "labels multilingually: the same profile renders French through the labels dictionary" do
-    tree = Ladl::ContentElement.new(id: "doc", type: "document", children: [
-      Ladl::ContentElement.new(id: "c1", type: "clause"),
-      Ladl::ContentElement.new(id: "a1", type: "annex"),
+    tree = Ladl::ContentElement.new(id: "doc", type: "document",
+      label_context: "DocumentContext", children: [
+      Ladl::ContentElement.new(id: "c1", type: "clause",
+        label_context: "ClauseContext"),
+      Ladl::ContentElement.new(id: "a1", type: "annex",
+        label_context: "AnnexContext"),
     ])
     french = {
       "clause" => "Article", "annex" => "Annexe", "figure" => "Figure",
