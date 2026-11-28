@@ -447,12 +447,12 @@ instance ExampleMultipleLabelTemplate < LabelTemplate {
 }
 
 instance ExampleSingleGlobalLabelTemplate < LabelTemplate {
-  pattern = "%parent, EXAMPLE"
+  pattern = "%parent, {example}"
   definition "Template for global single example references"
 }
 
 instance ExampleMultipleGlobalLabelTemplate < LabelTemplate {
-  pattern = "%parent, EXAMPLE %n"
+  pattern = "%parent, {example} %n"
   definition "Template for global multiple example references"
   condition = {
     type = "element_count_gt"
@@ -489,7 +489,7 @@ instance FormulaLabelTemplate < LabelTemplate {
 }
 
 instance FormulaGlobalLabelTemplate < LabelTemplate {
-  pattern = "Formula (%n)"
+  pattern = "{formula} (%n)"
   definition "Template for global formula references in the main document"
 }
 
@@ -509,7 +509,7 @@ instance AnnexFormulaLabelTemplate < LabelTemplate {
 }
 
 instance AnnexFormulaGlobalLabelTemplate < LabelTemplate {
-  pattern = "Formula (%pn.%n)"
+  pattern = "{formula} (%pn.%n)"
   definition "Template for global formula references in annexes"
 }
 
@@ -532,12 +532,12 @@ instance ListContext < LabelContext {
 }
 
 instance ListLabelTemplate < LabelTemplate {
-  pattern = "List %n"
+  pattern = "{list} %n"
   definition "Template for local list references in the main document"
 }
 
 instance ListGlobalLabelTemplate < LabelTemplate {
-  pattern = "List %n"
+  pattern = "{list} %n"
   definition "Template for global list references in the main document"
 }
 
@@ -552,12 +552,12 @@ instance ListLabeller < Labeller {
 }
 
 instance AnnexListLabelTemplate < LabelTemplate {
-  pattern = "List %pn.%n"
+  pattern = "{list} %pn.%n"
   definition "Template for local list references in annexes"
 }
 
 instance AnnexListGlobalLabelTemplate < LabelTemplate {
-  pattern = "List %pn.%n"
+  pattern = "{list} %pn.%n"
   definition "Template for global list references in annexes"
 }
 
