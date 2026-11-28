@@ -1,16 +1,19 @@
 // IALA Guidancy-family label style (metanorma-taste IALA, G-doctype)
 //
-// Evidence: IALA G1199 Ed 1.0 (the corpus's designated newest template,
-// mn-samples-iala reference-docs/guidelines) rendered HTML and the
-// deposited reference PDF:
+// Evidence: IALA G1199 Ed 1.0 rendered HTML (the Metanorma corpus's
+// designated newest template) and the deposited reference PDF — WHICH
+// DISAGREE, and this profile follows the corpus convention:
 //
 // * Body clauses: "1", "3.1", "3.1.1" — bare dotted hierarchical
-//   numbers, no trailing dot; the renderer joins the number to the
-//   title with a nbsp+space ("3.1  Managing a mix of voice...").
+//   numbers, no trailing dot (corpus convention). The DEPOSITED G1199
+//   headings carry trailing dots ("1. INTRODUCTION"); aligning is an
+//   owner decision.
 // * Preface (Contents, Introduction): unnumbered.
 // * Figures: per-chapter numbers "Figure 3-1", "Figure 3-2" with an
-//   em-dash caption join ("Figure 3-1 — Example of Digital
-//   Communication Principle").
+//   em-dash caption join — the Metanorma-corpus convention. The
+//   DEPOSITED IALA PDFs use flat per-document numbers with a space
+//   join ("Figure 1"…"Figure 8"); do not attribute per-chapter
+//   numbering to the deposited documents.
 // * Notes: ISO/IEC-inherited NOTE/NOTE n conditional form.
 //
 // Tables: no G1199 corpus evidence yet — ISO-style hierarchical form

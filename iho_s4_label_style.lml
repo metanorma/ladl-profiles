@@ -1,0 +1,310 @@
+// IHO S-4 Label Style Definition in LML (MN 112 instance syntax)
+// Style: IHO S-4 "Regulations of the IHO for International (INT) Charts
+// and Chart Specifications of the IHO" — loose-leaf, section-citable,
+// trilingual (EN/FR/ES share one label scheme).
+//
+// Canonical home: metanorma-iho (staging here per the release plan).
+// Corpus: metanorma/iho-s-4.
+
+// EXTRACTION GAPS (engine/profile support needed):
+// * Identity-derived numbering: S-4 sections and specifications carry
+//   PERMANENT published numbers (Sections 100, 200, ...; Specifications
+//   A-401, B-120.2) with intentional gaps and reserved numbers — labels
+//   derive from element identity, never from a running counter. The
+//   engine's sequences are counters only; an identity/explicit number
+//   source is required before these labellers render true S-4 labels.
+//   Until then the labellers below express the structure and templates;
+//   counter values are placeholders.
+// * The vocabulary token {appendix} ("Appendix", Part C Appendix A) is
+//   not in the engine render vocabulary; S-4 uses "Appendix", not
+//   "Annex", for its Part C appendix.
+
+instance S4LabelStyle < LabelStyle {
+  name = "IHO S-4 Label Style"
+  definition {
+    The IHO S-4 label style inherits the loose-leaf labeling conventions
+    * section numbers are permanent published identifiers (Sections 100-600
+      per part; identical across the EN/FR/ES variants)
+    * specification numbers are permanent IHO-assigned identifiers
+      (A-101, B-110, B-120.2, C-401), never renumbered; gaps and reserved
+      numbers are intentional
+    * Part C closes with Appendix A (a "Appendix", not an "Annex")
+
+    This style defines the labeling scheme used by S-4 parts and sections.
+  }
+
+  labellers = [
+    "id:section_labeller",
+    "id:specification_labeller",
+    "id:specification_subclause_labeller",
+    "id:appendix_labeller",
+    "id:appendix_subclause_labeller",
+    "id:figure_labeller",
+    "id:table_labeller",
+    "id:note_labeller",
+    "id:note_multiple_labeller",
+    "id:formula_labeller",
+    "id:list_labeller"
+  ]
+
+  sequences = [
+    DecimalNumericSequence,
+    AlphaUpperNumericSequence
+  ]
+
+  templates = [
+    SectionLabelTemplate,
+    SectionGlobalLabelTemplate,
+    SpecificationLabelTemplate,
+    SpecificationGlobalLabelTemplate,
+    SpecificationSubclauseLabelTemplate,
+    SpecificationSubclauseGlobalLabelTemplate,
+    AppendixLabelTemplate,
+    AppendixGlobalLabelTemplate,
+    AppendixSubclauseLabelTemplate,
+    AppendixSubclauseGlobalLabelTemplate,
+    FigureLabelTemplate,
+    TableLabelTemplate,
+    NoteSingleLabelTemplate,
+    NoteMultipleLabelTemplate,
+    FormulaLabelTemplate,
+    ListLabelTemplate
+  ]
+
+  contexts = [
+    DocumentContext,
+    SectionContext,
+    SpecificationContext,
+    AppendixContext
+  ]
+}
+
+// ---------------------------------------------------------------- contexts
+
+instance DocumentContext < LabelContext {
+  name = "document"
+  definition "Top-level context: the S-4 part document"
+}
+
+instance SectionContext < LabelContext {
+  name = "section"
+  parent = DocumentContext
+  definition "Context for a loose-leaf section (the update unit)"
+}
+
+instance SpecificationContext < LabelContext {
+  name = "specification"
+  parent = SectionContext
+  definition "Context for specifications within a section"
+}
+
+instance AppendixContext < LabelContext {
+  name = "appendix"
+  parent = DocumentContext
+  definition "Context for Part C Appendix A"
+}
+
+// ------------------------------------------------- sections (identity)
+
+// S-4 section labels are the published section numbers (100, 200, ...),
+// identical across EN/FR/ES. Template renders the element's own number.
+instance SectionLabelTemplate < LabelTemplate {
+  pattern = "{clause} %n"
+  definition "Section label; %n is the permanent published section number (identity-derived - engine gap)"
+}
+
+instance SectionGlobalLabelTemplate < LabelTemplate {
+  pattern = "{clause} %n"
+  definition "Global section label (edition resolution via git tags)"
+}
+
+instance SectionLabeller < Labeller {
+  id = "section_labeller"
+  sequence = DecimalNumericSequence
+  context = DocumentContext
+  type = "clause"
+  template = SectionLabelTemplate
+  global_template = SectionGlobalLabelTemplate
+  definition "Labeller for loose-leaf sections (identity-derived numbering - engine gap)"
+}
+
+// ------------------------------------------ specifications (identity)
+
+instance SpecificationLabelTemplate < LabelTemplate {
+  pattern = "%n"
+  definition "Specification label; %n is the permanent IHO-assigned number (A-401, B-110 - identity-derived - engine gap)"
+}
+
+instance SpecificationGlobalLabelTemplate < LabelTemplate {
+  pattern = "%n"
+  definition "Global specification label"
+}
+
+instance SpecificationLabeller < Labeller {
+  id = "specification_labeller"
+  sequence = DecimalNumericSequence
+  context = SectionContext
+  type = "clause"
+  template = SpecificationLabelTemplate
+  global_template = SpecificationGlobalLabelTemplate
+  definition "Labeller for specifications (identity-derived numbering - engine gap)"
+}
+
+instance SpecificationSubclauseLabelTemplate < LabelTemplate {
+  pattern = "%pn.%n"
+  definition "Specification sub-clause label (B-120.2 shape; identity-derived - engine gap)"
+}
+
+instance SpecificationSubclauseGlobalLabelTemplate < LabelTemplate {
+  pattern = "%pn.%n"
+  definition "Global specification sub-clause label"
+}
+
+instance SpecificationSubclauseLabeller < Labeller {
+  id = "specification_subclause_labeller"
+  sequence = DecimalNumericSequence
+  context = SpecificationContext
+  parent = SpecificationLabeller
+  type = "subclause"
+  template = SpecificationSubclauseLabelTemplate
+  global_template = SpecificationSubclauseGlobalLabelTemplate
+  definition "Labeller for sub-clauses of specifications (B-120.2 shape)"
+}
+
+// ------------------------------------------------------ appendix (C)
+
+instance AppendixLabelTemplate < LabelTemplate {
+  pattern = "{appendix} %n"
+  definition "Part C Appendix label; {appendix} vocabulary token pending in the engine"
+}
+
+instance AppendixGlobalLabelTemplate < LabelTemplate {
+  pattern = "{appendix} %n"
+  definition "Global Part C Appendix label"
+}
+
+instance AppendixLabeller < Labeller {
+  id = "appendix_labeller"
+  sequence = AlphaUpperNumericSequence
+  context = DocumentContext
+  type = "annex"
+  template = AppendixLabelTemplate
+  global_template = AppendixGlobalLabelTemplate
+  definition "Labeller for Part C Appendix A"
+}
+
+instance AppendixSubclauseLabelTemplate < LabelTemplate {
+  pattern = "%pn.%n"
+  definition "Appendix sub-clause label"
+}
+
+instance AppendixSubclauseGlobalLabelTemplate < LabelTemplate {
+  pattern = "%pn.%n"
+  definition "Global appendix sub-clause label"
+}
+
+instance AppendixSubclauseLabeller < Labeller {
+  id = "appendix_subclause_labeller"
+  sequence = DecimalNumericSequence
+  context = AppendixContext
+  parent = AppendixLabeller
+  type = "subclause"
+  template = AppendixSubclauseLabelTemplate
+  global_template = AppendixSubclauseGlobalLabelTemplate
+  definition "Labeller for sub-clauses within Part C Appendix A"
+}
+
+// ------------------------------------------------------ figures/tables
+
+// S-4 figures and tables number per part document (single decimal run).
+instance FigureLabelTemplate < LabelTemplate {
+  pattern = "{figure} %n"
+  definition "Figure label, numbered per part document"
+}
+
+instance FigureLabeller < Labeller {
+  id = "figure_labeller"
+  sequence = DecimalNumericSequence
+  context = DocumentContext
+  type = "figure"
+  template = FigureLabelTemplate
+  definition "Labeller for figures"
+}
+
+instance TableLabelTemplate < LabelTemplate {
+  pattern = "{table} %n"
+  definition "Table label, numbered per part document"
+}
+
+instance TableLabeller < Labeller {
+  id = "table_labeller"
+  sequence = DecimalNumericSequence
+  context = DocumentContext
+  type = "table"
+  template = TableLabelTemplate
+  definition "Labeller for tables"
+}
+
+// --------------------------------------------------------------- notes
+
+instance NoteSingleLabelTemplate < LabelTemplate {
+  pattern = "{note}"
+  definition "Single note label"
+}
+
+instance NoteMultipleLabelTemplate < LabelTemplate {
+  pattern = "{note} %n"
+  definition "Multiple note label"
+  condition = {
+    type = "element_count_gt"
+    threshold = 1
+  }
+}
+
+instance NoteLabeller < Labeller {
+  id = "note_labeller"
+  sequence = DecimalNumericSequence
+  context = SpecificationContext
+  type = "note"
+  template = [NoteSingleLabelTemplate, NoteMultipleLabelTemplate]
+  definition "Labeller for notes within specifications (single/multiple conditional)"
+}
+
+instance NoteMultipleLabeller < Labeller {
+  id = "note_multiple_labeller"
+  sequence = DecimalNumericSequence
+  context = SectionContext
+  type = "note"
+  template = [NoteSingleLabelTemplate, NoteMultipleLabelTemplate]
+  definition "Labeller for notes at section level (outside specifications)"
+}
+
+// ------------------------------------------------------ formulas/lists
+
+instance FormulaLabelTemplate < LabelTemplate {
+  pattern = "(%n)"
+  definition "Formula label, numbered per part document"
+}
+
+instance FormulaLabeller < Labeller {
+  id = "formula_labeller"
+  sequence = DecimalNumericSequence
+  context = DocumentContext
+  type = "formula"
+  template = FormulaLabelTemplate
+  definition "Labeller for formulas"
+}
+
+instance ListLabelTemplate < LabelTemplate {
+  pattern = "{list} %n"
+  definition "List label, numbered per part document"
+}
+
+instance ListLabeller < Labeller {
+  id = "list_labeller"
+  sequence = DecimalNumericSequence
+  context = SectionContext
+  type = "list"
+  template = ListLabelTemplate
+  definition "Labeller for lists"
+}
