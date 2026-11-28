@@ -296,7 +296,7 @@ instance FormulaLabeller < Labeller {
 }
 
 instance ListLabelTemplate < LabelTemplate {
-  pattern = "List %n"
+  pattern = "{list} %n"
   definition "List label, numbered per part document"
 }
 
