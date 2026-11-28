@@ -3,9 +3,41 @@
 Audited: every profile in this repository, against its metanorma
 flavor's label vocabulary (the flavor gems' i18n sources and xref
 logic) and, where published, the organization's drafting/brand style
-guide. Batch reports: SDO core (iso/iec/ieee/ietf/itu/nist), standards
-bodies (ogc/bipm/jcgm/jis/gb/plateau), taste flavors (14 profiles); IHO
-family (iho/iho_s4/wmo/iala_standard/iala_guideline) in progress.
+guide. Batches: SDO core (iso/iec/ieee/ietf/itu/nist), standards
+bodies (ogc/bipm/jcgm/jis/gb/plateau), taste flavors (14 profiles),
+IHO family (iho/iho_s4/wmo/iala_standard/iala_guideline).
+
+## IHO family findings
+
+- The FLAVOR and PUBLISHED IHO disagree on figure/table numbering:
+  metanorma-iho xref renders hierarchical "Figure 5-1"/"Table 4-1"
+  (hiersep "-"), while published S-102 Ed 2.2.0 uses flat "Figure n".
+  The profile matches neither faithfully (flat, no dash). Binding
+  figures/tables to the clause context with "{figure} %pn-%n" or
+  keeping flat per published IHO is an OWNER DECISION; not changed
+  here.
+- iho subclause global xrefs carry the term word ("Clause 1.1",
+  xref section_names1) — FIXED: `{subclause} %pn.%n`.
+- wmo: the definition block still read the ISO/IEC Directives + ISO
+  House Style copy; corrected to the WMO facts (base-flavor iho,
+  doctype_dict-only i18n, WMO-No. 49 annex structure, the June-2016
+  visual-identity guidelines binding per data/wmo/config.yaml).
+- iala_guideline: the header attributed per-chapter figure numbering
+  to the deposited reference PDF — the deposited G1199/G1201 PDFs use
+  flat per-document numbers with space join, and their headings carry
+  trailing dots. Header corrected to state the corpus-vs-deposited
+  split honestly; flat-vs-per-chapter is an OWNER DECISION.
+- iala_standard: IALA Style Guide §3.2.11.1 numbers APPENDIX 1 in
+  Arabic — no labeller covers it; needs the {appendix} engine token
+  (gap 8).
+- iho_s4: no LML fixes (its two flags are honest engine gaps:
+  identity-derived numbers and the {appendix} token).
+
+IHO brand sources: Metanorma IHO markup page (citing IHO Style Manual
+2021, not public), IHO S-97 Ed 1.1.0 PS-developer guidance, WMO
+corporate visual identity guidelines + Writing and Style Guide, IALA
+Style Guide Ed 1.0/1.3; deposited S-102/G1199/G1201/S1040 PDFs in
+mn-samples-iho and mn-samples-iala reference-docs.
 
 ## Systemic defect found and fixed
 

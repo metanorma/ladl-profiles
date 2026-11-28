@@ -156,7 +156,7 @@ instance SubclauseLabelTemplate < LabelTemplate {
 }
 
 instance SubclauseGlobalLabelTemplate < LabelTemplate {
-  pattern = "%pn.%n"
+  pattern = "{subclause} %pn.%n"
   definition "Template for global subclause references"
 }
 

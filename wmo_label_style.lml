@@ -5,9 +5,9 @@
 instance WmoTasteLabelStyle < LabelStyle {
   name = "WmoTaste Label Style"
   definition {
-    The WmoTaste taste label style inherits the IHO-family scheme (the wmo taste renders through the iho stack; WMO S-411 corpus)
-    * the ISO/IEC Directives, Part 2 as realized by the shared engine defaults
-    * the ISO House Style.
+    The WmoTaste taste label style inherits the IHO-family scheme (the wmo taste declares base-flavor iho; its i18n carries only a doctype_dict, so the IHO vocabulary applies; WMO S-411 corpus)
+    * WMO Manuals structure: annexes to WMO-No. 49 with Roman numerals — the Annex vocabulary is compatible
+    * WMO corporate visual identity guidelines (June 2016) and the WMO Writing and Style Guide (2023) govern presentation, not designation words.
 
     This style defines the labeling scheme used by the WmoTaste taste.
   }
@@ -19,7 +19,7 @@ instance WmoTasteLabelStyle < LabelStyle {
 
 
   // EXTRACTION NOTES:
-  // * the taste inherits its parent flavor scheme; taste i18n carries doctype vocabulary only, no label overrides
+  // * the taste inherits its parent flavor scheme; taste i18n verified: doctype_dict only — the IHO designation vocabulary applies unchanged
 
   labellers = [
     "id:clause_labeller",
@@ -116,7 +116,7 @@ instance WmoTasteLabelStyle < LabelStyle {
 // Define the document context
 instance DocumentContext < LabelContext {
   name = "document"
-  definition "Top-level document context for ISO/IEC documents"
+  definition "Top-level document context for IHO-family documents"
 }
 
 // Clause labeling
@@ -229,7 +229,7 @@ instance AnnexClauseLabeller < Labeller {
   definition "Labeller for clauses within annexes"
 }
 
-// Annex subclauses: ISO/IEC documents label clause descendants inside
+// Annex subclauses: IHO-family documents label clause descendants inside
 // annexes hierarchically (A.1.1, A.1.1.1), per the current ISO engine
 // (isodoc annex_names recursion) and the ISO/IEC Directives Part 2.
 instance AnnexSubclauseLabelTemplate < LabelTemplate {
@@ -421,7 +421,7 @@ instance NoteLabeller < Labeller {
   definition "Labeller for notes in clauses with conditional templates based on note count"
 }
 
-// Notes count per section in ISO/IEC documents: the current ISO engine
+// Notes count per section in IHO-family documents: the current ISO engine
 // (isodoc note_anchor_names) restarts the counter for every clause and
 // subclause, so notes inside subclauses bind to SubclauseContext rather
 // than continuing the enclosing clause's counter.
@@ -474,7 +474,7 @@ instance ExampleLabeller < Labeller {
   definition "Labeller for examples in clauses with conditional templates based on example count"
 }
 
-// Examples count per section in ISO/IEC documents, like notes (isodoc
+// Examples count per section in IHO-family documents, like notes (isodoc
 // example_anchor_names restarts the counter per clause and subclause).
 instance SubclauseExampleLabeller < Labeller {
   id = "subclause_example_labeller"
